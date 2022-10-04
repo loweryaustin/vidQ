@@ -69,7 +69,7 @@ def concatVids(vidMetaList):
     concat = f'concat=n={vidCount}:'
     vidOut = f'v=1:a=1[v][a]'
     maps = f'-map "[v]" -map "[a]"'
-    cmd = f'ffmpeg -y {fileList} -vsync 2 -filter_complex "{scale}{audio}{concat}{vidOut}" {maps} "/home/user1/out.mp4"'
+    cmd = f'ffmpeg -y {fileList} -vsync 2 -filter_complex "{scale}{audio}{concat}{vidOut}" {maps} "{getOutputPath()}"'
 
 #    joined = ffmpeg.concat(*inputs, v=1, a=1)
 #    ffmpeg.output(joined[0], joined[1], "/home/user1/output.mp4").run()
