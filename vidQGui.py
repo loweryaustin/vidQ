@@ -12,6 +12,8 @@ from pprint import pprint
 #Generate a tmp dir for intermediary work on vids
 tmpDir = tempfile.TemporaryDirectory()
 
+newline = '\n'
+bullet = '\u2022'
 
 #Function defs
 def genVidRow(vid):
@@ -42,8 +44,25 @@ layout = [
         [sg.Button('Quit')]
 ]
 
+errorLayout = []
+
+FFMPEGres = vidq.checkFFMPEG()
+
 # Create the window
-window = sg.Window('Window Title', layout)
+if len(FFMPEGres) > 0:
+    if len(FFMPEGres) > 1:
+        plurality = f'ies are'
+        ul = f'{bullet} {FFMPEGres[0]}{newline}{bullet} {FFMPEGres[1]}'
+    else:
+        plurality = f'y is'
+        ul = f'{bullet} {FFMPEGres[0]}'
+   
+    window = sg.Window('ERROR: Binary Not Accessible', [[sg.T(f'The following binar{plurality} either missing, not executable, or not in the PATH:')],[sg.T(f'{ul}{newline}{newline}')],[sg.B('Quit')]])
+else:
+    window = sg.Window('Window Title', layout)
+
+
+     
 
 # Display and interact with the Window using an Event Loop
 vidQueue = []

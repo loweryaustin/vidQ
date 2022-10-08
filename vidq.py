@@ -6,12 +6,35 @@ import re
 import subprocess
 import tempfile
 from pathlib import Path
-
+import platform
 
 def getOutputPath():
     homeDirPath = str(Path.home())
     outputPath = os.path.join(homeDirPath, 'vidQOut.mp4')
     return outputPath
+
+def is_tool(name):
+    """Check whether `name` is on PATH and marked as executable."""
+
+    # from whichcraft import which
+    from shutil import which
+
+    return which(name) is not None
+
+
+def checkFFMPEG():
+    res = []
+    extension = ''
+    if platform.system() == 'Windows':
+        extension = '.exe'
+
+    if is_tool('ffmpeg') == False:
+        res.append(f'ffmpeg{extension}')
+
+    if is_tool('ffprobe') == False:
+        res.append(f'ffprobe{extension}')
+
+    return res
 
 def getVolume(vidPath):
     process = subprocess.Popen(
