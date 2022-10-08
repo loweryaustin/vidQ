@@ -8,6 +8,7 @@ import datetime
 import tempfile
 from pathlib import Path
 from pprint import pprint
+from base64Icons import icon16, icon32, icon64, icon128, icon256, icon512
 
 #Generate a tmp dir for intermediary work on vids
 tmpDir = tempfile.TemporaryDirectory()
@@ -59,7 +60,7 @@ if len(FFMPEGres) > 0:
    
     window = sg.Window('ERROR: Binary Not Accessible', [[sg.T(f'The following binar{plurality} either missing, not executable, or not in the PATH:')],[sg.T(f'{ul}{newline}{newline}')],[sg.B('Quit')]])
 else:
-    window = sg.Window('Window Title', layout)
+    window = sg.Window('Window Title', layout, icon=icon128)
 
 
      
